@@ -2,6 +2,8 @@
 
 package inlamningsuppgift;
 
+import java.util.Iterator;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,17 +11,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SodukuSolver extends Application{
-	
+	static Sudoku s = new Sudoku();
 	public static void main(String[] args){
 		launch(args);
-		Sudoku s = new Sudoku();
-		//s.setSquare(1, 2, 2);
-		//s.setSquare(9, 8, 8);
+		//Sudoku s = new Sudoku();
+		s.setSquare(1, 2, 2);
+		s.setSquare(9, 8, 8);
 		s.solve();
 		for(int r = 0; r < 9; r++){
 			for(int c = 0; c < 9; c++){
@@ -32,13 +38,13 @@ public class SodukuSolver extends Application{
 	@Override
 	public void start(Stage stage) throws Exception {
 		
-		TilePane root = new TilePane();
-		root.setPrefColumns(9);
-		root.setPrefRows(9);
+		TilePane tiles = new TilePane();
+		tiles.setPrefColumns(9);
+		tiles.setPrefRows(9);
 		final int SIZE = 40;
 		for (int i = 0; i < 9; i++) {
 		      for (int k = 0; k < 9; k++) {
-		          TextField tf = new TextField();
+		          OneNumberTextField tf = new OneNumberTextField();
 		          tf.setPrefSize(SIZE, SIZE);
 		          tf.setStyle("-fx-background-color: #ffffff;"
 		        		  + "-fx-border-color: #867979");
@@ -141,11 +147,56 @@ public class SodukuSolver extends Application{
 		        		  + "-fx-border-color: #867979");}
 	        	  break;
 	          }
-		          root.getChildren().add(tf);
+		          tiles.getChildren().add(tf);
 		      }
 		}
+		
+		BorderPane box = new BorderPane();
+		Button solveB = new Button();
+		solveB.setText("Solve");
+		solveB.setOnAction((event) -> {
+			Iterator i = tiles.getChildren().iterator();
+			int j = 1;
+			int k = 1;
+			while(i.hasNext()){
+				if(k % 10 == 0){
+					j++;
+					k=1;
+				}
+				OneNumberTextField f = (OneNumberTextField) i.next();
+				if(!f.getText().equals("")){
+				s.setSquare(Integer.parseInt(f.getText()), j, k);
+				}
+			}
+			if(s.solve(0,0)){
+				Iterator i1 = tiles.getChildren().iterator();
+				for(int j1=1;j1<10;j1++){
+					for(int k1=1;k1<10;k1++){
+						OneNumberTextField f1 = (OneNumberTextField) i1.next();
+						f1.setText(String.valueOf(s.getSquare(j1,k1)));
+					}
+				}
+				
+			}
+		});
+		
+		Button clearB = new Button();
+		clearB.setText("Clear");
+		clearB.setOnAction((event) ->{
+			Iterator i = tiles.getChildren().iterator();
+			while(i.hasNext()){
+				OneNumberTextField f = (OneNumberTextField) i.next();
+				f.clear();
+			};
+		});
+		
+		box.setLeft(solveB);
+		box.setRight(clearB);
+		VBox root = new VBox();
+		root.getChildren().add(tiles);
+		root.getChildren().add(box);
 		stage.setResizable(false);
-		stage.setScene(new Scene(root, 360, 360));
+		stage.setScene(new Scene(root, 348, 380));
 		stage.setTitle("Sudoku");
 		stage.show();
 		

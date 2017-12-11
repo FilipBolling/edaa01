@@ -121,7 +121,7 @@ public class Sudoku {
 		solve(0, 0);
 	}
 	
-	private boolean solve(int i, int j) {
+	public boolean solve(int i, int j) {
 		if (lattice[i][j] == 0) {
 			for (int input = 1; input < 10; input++) {
 				if (checkSurroundings(input, i, j)) {
@@ -133,7 +133,7 @@ public class Sudoku {
 							return true;
 						}
 					} else {
-						if (solve(i+1, 0)) {
+						if (solve(i++, 0)) {
 							return true;
 						}
 					}
