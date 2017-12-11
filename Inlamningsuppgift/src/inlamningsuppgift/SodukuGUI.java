@@ -1,5 +1,3 @@
-// TODO: toggle SetSquare för GUI, add Solve button, (add randomize?)
-
 package inlamningsuppgift;
 
 import javafx.application.Application;
@@ -13,24 +11,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
-public class SodukuSolver extends Application{
-	
-	public static void main(String[] args){
-		launch(args);
-		Sudoku s = new Sudoku();
-		//s.setSquare(1, 2, 2);
-		//s.setSquare(9, 8, 8);
-		s.solve();
-		for(int r = 0; r < 9; r++){
-			for(int c = 0; c < 9; c++){
-				System.out.print(s.getSquare(r, c) + "      ");
-			}
-			System.out.println("\n");
-		}
-	}
-
-	@Override
-	public void start(Stage stage) throws Exception {
+public class SodukuGUI extends Application{
+public void start(Stage stage) throws Exception {
 		
 		TilePane root = new TilePane();
 		root.setPrefColumns(9);
