@@ -20,12 +20,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SodukuSolver extends Application{
-	static Sudoku s = new Sudoku();
+	 Sudoku s = new Sudoku();
 	public static void main(String[] args){
 		launch(args);
-		//Sudoku s = new Sudoku();
-		s.setSquare(1, 2, 2);
-		s.setSquare(9, 8, 8);
+		Sudoku s = new Sudoku();
+//		s.setSquare(1, 2, 2);
+//		s.setSquare(9, 8, 8);
 		s.solve();
 		for(int r = 0; r < 9; r++){
 			for(int c = 0; c < 9; c++){
@@ -156,22 +156,25 @@ public class SodukuSolver extends Application{
 		solveB.setText("Solve");
 		solveB.setOnAction((event) -> {
 			Iterator i = tiles.getChildren().iterator();
-			int j = 1;
-			int k = 1;
+			int j = 0;
+			int k = 0;
 			while(i.hasNext()){
-				if(k % 10 == 0){
+				if(k % 9 == 0 && k!=0){
 					j++;
-					k=1;
+					k=0;
 				}
 				OneNumberTextField f = (OneNumberTextField) i.next();
 				if(!f.getText().equals("")){
 				s.setSquare(Integer.parseInt(f.getText()), j, k);
+				
 				}
-			}
+//			System.out.println(f.getText());
+//			System.out.print(Integer.parseInt(f.getText()))
+				k++;}
 			if(s.solve(0,0)){
 				Iterator i1 = tiles.getChildren().iterator();
-				for(int j1=1;j1<10;j1++){
-					for(int k1=1;k1<10;k1++){
+				for(int j1=0;j1<9;j1++){
+					for(int k1=0;k1<9;k1++){
 						OneNumberTextField f1 = (OneNumberTextField) i1.next();
 						f1.setText(String.valueOf(s.getSquare(j1,k1)));
 					}

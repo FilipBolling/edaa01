@@ -133,7 +133,7 @@ public class Sudoku {
 							return true;
 						}
 					} else {
-						if (solve(i++, 0)) {
+						if (solve(i+1, 0)) {
 							return true;
 						}
 					}
