@@ -21,19 +21,19 @@ import javafx.stage.Stage;
 
 public class SudokuSolver extends Application{
 	 Sudoku s = new Sudoku();
-	public static void main(String[] args){
-		launch(args);
-		Sudoku s = new Sudoku();
-//		s.setSquare(1, 2, 2);
-//		s.setSquare(9, 8, 8);
-		s.solve();
-		for(int r = 0; r < 9; r++){
-			for(int c = 0; c < 9; c++){
-				System.out.print(s.getSquare(r, c) + "      ");
-			}
-			System.out.println("\n");
-		}
-	}
+//	public static void main(String[] args){
+//		launch(args);
+//	//	Sudoku s = new Sudoku();
+////		s.setSquare(1, 2, 2);
+////		s.setSquare(9, 8, 8);
+//		s.solve();
+//		for(int r = 0; r < 9; r++){
+//			for(int c = 0; c < 9; c++){
+//				System.out.print(s.getSquare(r, c) + "      ");
+//			}
+//			System.out.println("\n");
+//		}
+//	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
