@@ -14,7 +14,7 @@ public class Sudoku {
 	}
 	
 	public void setSquare(int input, int p1, int p2){
-		if(input < 1 || input > 9){
+		if(input < 0 || input > 9){
 			return;
 		} 
 		lattice[p1][p2] = input;

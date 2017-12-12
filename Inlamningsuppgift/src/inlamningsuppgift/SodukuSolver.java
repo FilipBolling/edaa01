@@ -190,8 +190,12 @@ public class SodukuSolver extends Application{
 			while(i.hasNext()){
 				OneNumberTextField f = (OneNumberTextField) i.next();
 				f.clear();
+				
 			};
-		});
+			for (int l = 0; l < 9; l++) {
+			      for (int k = 0; k < 9; k++) {
+			    	  s.setSquare(0, l, k);
+			      }}});
 		
 		box.setLeft(solveB);
 		box.setRight(clearB);
