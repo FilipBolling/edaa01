@@ -1,5 +1,3 @@
-// TODO: toggle SetSquare för GUI, add Solve button, (add randomize?)
-
 package inlamningsuppgift;
 
 import java.util.Iterator;
@@ -8,6 +6,8 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -19,7 +19,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class SodukuSolver extends Application{
+public class SudokuSolver extends Application{
 	 Sudoku s = new Sudoku();
 	public static void main(String[] args){
 		launch(args);
@@ -164,14 +164,17 @@ public class SodukuSolver extends Application{
 					k=0;
 				}
 				OneNumberTextField f = (OneNumberTextField) i.next();
-				if(!f.getText().equals("")){
-				s.setSquare(Integer.parseInt(f.getText()), j, k);
+				if(f.getText().equals("")){
+					
+					s.setSquare(0, j, k);
+				}
+				else{s.setSquare(Integer.parseInt(f.getText()), j, k);
 				
 				}
 //			System.out.println(f.getText());
 //			System.out.print(Integer.parseInt(f.getText()))
 				k++;}
-			if(s.solve(0,0)){
+			if(s.solve()){
 				Iterator i1 = tiles.getChildren().iterator();
 				for(int j1=0;j1<9;j1++){
 					for(int k1=0;k1<9;k1++){
@@ -180,6 +183,11 @@ public class SodukuSolver extends Application{
 					}
 				}
 				
+			}
+			else{
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("Det gör inget, sudoku är inte för alla");
+			alert.showAndWait();
 			}
 		});
 		
